@@ -36,13 +36,14 @@ const css = `
 `
 
 let exportedTokens = {}
-const styles = postcss([
+const result = postcss([
   CSSModulesSync({
     generateScopedName: '[path][local]-[hash:base64:10]',
     getJSON: tokens => exportedTokens = tokens
   })
-]).process(css).css
+]).process(css)
 
-console.log('styles', styles)
+console.log('styles', result.css)
+result.sync()
 console.log('tokens', exportedTokens)
 ```
